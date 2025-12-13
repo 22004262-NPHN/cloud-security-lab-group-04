@@ -2,70 +2,228 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giới thiệu Thành viên Nhóm</title>
+    <title>Triển khai Website Tĩnh với Cloudflare Pages</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
             margin: 0;
-            padding: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f4f6f8;
+            color: #333;
         }
+
         header {
-            background-color: #0077b6;
+            background: linear-gradient(135deg, #009746, #ffffff);
             color: white;
+            padding: 25px 10px;
             text-align: center;
-            padding: 20px;
         }
-        main {
-            padding: 20px;
+
+        header h1 {
+            margin-bottom: 10px;
         }
-        h1 {
-            color: #0077b6;
+
+        .members {
+            font-size: 18px;
+            line-height: 1.6;
         }
-        .member {
-            margin: 20px 0;
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
         }
-        .member h2 {
-            color: #0096c7;
+
+        .content {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
         }
+
+        .content h2 {
+            color: #20f3a2;
+            margin-bottom: 15px;
+        }
+
+        .content p {
+            text-align: justify;
+            line-height: 1.7;
+        }
+
+        ul {
+            margin-left: 20px;
+        }
+
         footer {
             text-align: center;
-            padding: 10px;
-            background-color: #0077b6;
-            color: white;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
+            padding: 15px;
+            font-size: 14px;
+            color: #777;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Giới thiệu Thành viên Nhóm</h1>
+    <h1>Triển khai Website Tĩnh với Cloudflare Pages</h1>
+    <div class="members">
+        22004262 – Nguyễn Phúc Hạnh Nguyên<br>
+        22004263 – Trần Ngọc Mỹ Duyên<br>
+        22004285 – Võ Đinh Hoàng Mỹ
+    </div>
 </header>
 
-<main>
-    <section>
-        <h2>Thông tin về thành viên nhóm</h2>
-        <div class="member">
-            <h3>22004262_Nguyễn Phúc Hạnh Nguyên</h3>
-        </div>
-        <div class="member">
-            <h3>2004263_Trần Ngọc Mỹ Duyên</h3>
-        </div>
-        <div class="member">
-            <h3>22004285_Võ Đinh Hoàng Mỹ</h3>
-        </div>
-    </section>
+<div class="container">
 
+    <!-- YÊU CẦU 1 -->
+    <div class="content">
+        <h2>Yêu cầu 1: Kiến thức cơ bản</h2>
+
+        <p><strong>1. Cloud Computing là gì?</strong><br>
+        Cloud Computing (Điện toán đám mây) là mô hình cung cấp tài nguyên CNTT như máy chủ, lưu trữ,
+        cơ sở dữ liệu, mạng và phần mềm thông qua Internet theo hình thức dịch vụ.
+        Người dùng không cần đầu tư hạ tầng vật lý mà chỉ sử dụng và trả phí theo mức độ dùng.</p>
+
+        <p><strong>Đặc điểm chính:</strong></p>
+        <ul>
+            <li>Truy cập mọi lúc, mọi nơi qua Internet</li>
+            <li>Mở rộng linh hoạt (scalability)</li>
+            <li>Trả phí theo mức sử dụng (pay-as-you-go)</li>
+            <li>Giảm chi phí vận hành và bảo trì</li>
+        </ul>
+
+        <p><strong>2. Phân biệt IaaS – PaaS – SaaS</strong></p>
+        <p>
+            IaaS cho phép người dùng quản lý hệ điều hành, ứng dụng và dữ liệu; nhà cung cấp quản lý hạ tầng
+            (ví dụ: AWS EC2, Google Compute). PaaS cho phép người dùng quản lý ứng dụng và dữ liệu, trong khi
+            nền tảng chịu trách nhiệm hạ tầng và môi trường triển khai (ví dụ: Cloudflare Pages, Heroku).
+            SaaS là mô hình người dùng chỉ sử dụng phần mềm, toàn bộ hệ thống do nhà cung cấp quản lý
+            (ví dụ: Gmail, Google Docs).
+        </p>
+
+        <p><strong>3. Website tĩnh thuộc mô hình cloud nào?</strong><br>
+        Website tĩnh thuộc mô hình PaaS vì người dùng chỉ cần viết HTML/CSS/JS,
+        không phải quản lý server hay hệ điều hành, toàn bộ quá trình deploy, HTTPS và CDN
+        do nền tảng Cloudflare Pages đảm nhiệm.</p>
+
+        <p><strong>4. Cloudflare Pages hoạt động theo cơ chế gì?</strong></p>
+        <ul>
+            <li>Mã nguồn được lưu trữ trên GitHub</li>
+            <li>Cloudflare Pages kết nối repository</li>
+            <li>Khi có thay đổi, hệ thống tự động build và deploy</li>
+            <li>Nội dung được phân phối qua CDN toàn cầu</li>
+        </ul>
+
+        <p><strong>5. CDN phân phối nội dung ra sao?</strong><br>
+        CDN là mạng lưới máy chủ đặt tại nhiều vị trí địa lý khác nhau. Khi người dùng truy cập website,
+        CDN sẽ chọn máy chủ gần nhất để trả nội dung, giúp tăng tốc độ tải trang, giảm độ trễ,
+        giảm tải server gốc và tăng khả năng chống DDoS.</p>
+
+        <p><strong>6. Vai trò của CDN đối với hiệu năng và an toàn</strong></p>
+        <ul>
+            <li>Giảm độ trễ truy cập và tăng tốc độ tải trang</li>
+            <li>Giảm tải cho server gốc</li>
+            <li>Chống DDoS, ẩn IP server gốc</li>
+            <li>Tích hợp HTTPS và tường lửa WAF</li>
+        </ul>
+
+        <p><strong>7. Ví dụ minh họa</strong><br>
+        Người dùng tại Việt Nam truy cập website sẽ được phục vụ nội dung từ máy chủ Cloudflare
+        gần Việt Nam thay vì truy cập trực tiếp server gốc.</p>
+
+        <p><strong>8. Rủi ro bảo mật còn tồn tại</strong><br>
+        Website vẫn có thể gặp các rủi ro như thiếu HTTP Security Headers, lộ mã nguồn nhạy cảm
+        trên GitHub, tấn công XSS phía client, cấu hình sai quyền truy cập repository
+        hoặc không kiểm tra bảo mật định kỳ.</p>
+
+        <p><strong>9. Giải pháp</strong></p>
+        <ul>
+            <li>Bật và kiểm tra các HTTP Security Headers</li>
+            <li>Kiểm tra website bằng securityheaders.com và pagespeed.web.dev</li>
+            <li>Không lưu API key, token trong mã nguồn</li>
+            <li>Sử dụng GitHub Private Repository khi cần</li>
+            <li>Kiểm tra định kỳ cấu hình Cloudflare</li>
+        </ul>
+        <img src="yc1h1.png" alt="" style="width: 900px; height: 500px; display: block; margin: 20px auto;">
+    </div>
+    <div class="content">
+        <h2>Yêu cầu 2: Triển khai website tĩnh với GitHub và Cloudflare Pages</h2>
     
-</main>
+        <p><strong>1. GitHub là gì?</strong><br>
+        GitHub là nền tảng lưu trữ và quản lý mã nguồn dựa trên hệ thống Git, cho phép người dùng
+        làm việc nhóm, quản lý phiên bản và lưu trữ các dự án phần mềm, bao gồm cả website tĩnh
+        sử dụng HTML, CSS và JavaScript.
+        </p>
+    
+        <ul>
+            <li>Quản lý source code hiệu quả</li>
+            <li>Hỗ trợ làm việc nhóm và kiểm soát phiên bản</li>
+            <li>Lưu trữ website tĩnh (HTML, CSS, JS)</li>
+            <li>Kết nối với các dịch vụ triển khai tự động (CI/CD)</li>
+        </ul>
+    
+        <p>
+            Trong bài này, GitHub được sử dụng để lưu trữ mã nguồn website tĩnh và làm nguồn
+            dữ liệu đầu vào cho Cloudflare Pages.
+        </p>
+    
+        <p><strong>2. Cloudflare Pages là gì?</strong><br>
+        Cloudflare Pages là dịch vụ triển khai website tĩnh theo mô hình PaaS, cho phép kết nối
+        trực tiếp với GitHub để tự động build và deploy website.
+        </p>
+    
+        <ul>
+            <li>Triển khai (deploy) website tĩnh nhanh chóng</li>
+            <li>Tích hợp trực tiếp với GitHub</li>
+            <li>Sử dụng CDN toàn cầu của Cloudflare</li>
+            <li>Miễn phí cho dự án nhỏ, HTTPS tự động</li>
+        </ul>
+    
+        <p>
+            Cloudflare Pages đóng vai trò đưa website từ GitHub lên Internet, đảm bảo tốc độ truy cập cao,
+            độ ổn định tốt và tăng cường bảo mật cho website.
+        </p>
+    </div>
+    
+    <!-- YÊU CẦU 3 -->
+    <div class="content">
+        <h2>Yêu cầu 3: Kiểm tra an toàn và đánh giá website</h2>
+
+        <p><strong>1. Kiểm tra an toàn website bằng SecurityHeaders</strong><br>
+        Công cụ SecurityHeaders được sử dụng để đánh giá mức độ an toàn của website
+        thông qua các HTTP Security Headers.</p>
+
+        <p><strong>Quy trình thực hiện:</strong></p>
+        <ul>
+            <li>Truy cập website securityheaders.com</li>
+            <li>Nhập URL website đã deploy trên Cloudflare Pages</li>
+            <li>Hệ thống tự động quét và chấm điểm bảo mật</li>
+        </ul>
+
+        <p><strong>Các header quan trọng:</strong> CSP, HSTS, X-Frame-Options,
+        X-Content-Type-Options và Referrer-Policy.</p>
+
+        <p><strong>2. Đánh giá hiệu năng bằng PageSpeed Insights</strong><br>
+        PageSpeed Insights dùng để đánh giá tốc độ tải trang và trải nghiệm người dùng.</p>
+
+        <p><strong>Quy trình:</strong></p>
+        <ul>
+            <li>Truy cập pagespeed.web.dev</li>
+            <li>Nhập URL website</li>
+            <li>Phân tích trên hai môi trường Mobile và Desktop</li>
+        </ul>
+
+        <p><strong>Các chỉ số quan trọng:</strong> Performance, FCP, LCP, CLS và TTI.
+        Điểm số cao cho thấy website tải nhanh, ổn định và thân thiện với người dùng.</p>
+        <img src="yc3h1.png" alt="" style="width: 900px; height: 500px; display: block; margin: 20px auto;">
+        <img src="yc3h2.png" alt="" style="width: 900px; height: 500px; display: block; margin: 20px auto;">
+    </div>
+
+</div>
 
 <footer>
-    <p>&copy; 2025 Nhóm 4 </p>
+    © 2025 – Demo Website Tĩnh với GitHub & Cloudflare Pages – Nhóm 4
 </footer>
 
 </body>
