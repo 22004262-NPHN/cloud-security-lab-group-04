@@ -16,98 +16,122 @@
             color: #333;
         }
 
+        /* ===== NAVBAR ===== */
         nav {
             position: sticky;
             top: 0;
-            background: #ffffff;
-            padding: 12px;
-            text-align: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
             z-index: 100;
+            background: white;
+            padding: 12px 0;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         nav a {
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
             color: #043915;
-            margin: 0 10px;
+            margin: 0 15px;
+            font-size: 15px;
         }
 
         nav a:hover {
             text-decoration: underline;
         }
 
+        /* ===== HEADER ===== */
         header {
-            background: #043915;
+            background: linear-gradient(135deg, #043915, #0a5c2c);
             color: white;
-            padding: 25px 10px;
+            padding: 35px 15px;
             text-align: center;
         }
 
         header h1 {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
-        .members {
-            font-size: 18px;
+        /* ===== MEMBER SECTION ===== */
+        .members-box {
+            background: rgba(255,255,255,0.15);
+            display: inline-block;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-size: 17px;
             line-height: 1.6;
         }
 
+        /* ===== LAYOUT ===== */
         .container {
             max-width: 1000px;
-            margin: 30px auto;
+            margin: 40px auto;
             padding: 0 20px;
         }
 
         .content {
-            background: #D9E9CF;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            margin-bottom: 30px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            margin-bottom: 35px;
         }
 
         .content h2 {
-            color: #4C763B;
-            margin-bottom: 15px;
+            color: #0a5c2c;
+            margin-bottom: 20px;
+            border-left: 5px solid #0a5c2c;
+            padding-left: 12px;
+        }
+
+        .content h3 {
+            color: #043915;
+            margin-top: 25px;
         }
 
         .content p {
             text-align: justify;
-            line-height: 1.7;
+            line-height: 1.75;
         }
 
         ul, ol {
-            margin-left: 20px;
+            margin-left: 25px;
+            line-height: 1.7;
         }
 
         img {
             width: 900px;
             max-width: 100%;
             display: block;
-            margin: 20px auto;
+            margin: 25px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
+        /* ===== FOOTER ===== */
         footer {
             text-align: center;
-            padding: 15px;
+            padding: 18px;
             font-size: 14px;
             color: #777;
+            background: #ffffff;
+            box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
         }
     </style>
 </head>
 
 <body>
 
-<!-- MENU ĐIỀU HƯỚNG CUỘN -->
+<!-- ===== MENU ĐIỀU HƯỚNG ===== -->
 <nav>
-    <a href="#lab1">🏠 Lab 1 – Cloud & CDN</a> |
+    <a href="#members">👥 Thành viên</a>
+    <a href="#lab1">☁️ Lab 1 – Cloud & CDN</a>
     <a href="#lab2">🔐 Lab 2 – Zero Trust</a>
 </nav>
 
-<header>
+<!-- ===== HEADER + THÀNH VIÊN ===== -->
+<header id="members">
     <h1>Triển khai Website Tĩnh với Cloudflare Pages</h1>
-    <div class="members">
+    <div class="members-box">
         22004262 – Nguyễn Phúc Hạnh Nguyên<br>
         22004263 – Trần Ngọc Mỹ Duyên<br>
         22004285 – Võ Đinh Hoàng Mỹ
@@ -116,39 +140,75 @@
 
 <div class="container">
 
-<!-- ================= LAB 1 ================= -->
+<!-- ================= LAB 1 (GIỮ NGUYÊN NỘI DUNG) ================= -->
 <div class="content" id="lab1">
-    <h2>Lab Tuần 1 – Kiến thức cơ bản Cloud & CDN</h2>
+    <h2>Yêu cầu 1: Kiến thức cơ bản</h2>
 
-    <p><strong>Cloud Computing là gì?</strong><br>
-    Cloud Computing là mô hình cung cấp tài nguyên CNTT qua Internet theo hình thức dịch vụ,
-    giúp người dùng không cần đầu tư hạ tầng vật lý.</p>
+    <p><strong>1. Cloud Computing là gì?</strong><br>
+    Cloud Computing (Điện toán đám mây) là mô hình cung cấp tài nguyên CNTT như máy chủ, lưu trữ,
+    cơ sở dữ liệu, mạng và phần mềm thông qua Internet theo hình thức dịch vụ.
+    Người dùng không cần đầu tư hạ tầng vật lý mà chỉ sử dụng và trả phí theo mức độ dùng.</p>
 
+    <p><strong>Đặc điểm chính:</strong></p>
     <ul>
-        <li>Truy cập mọi lúc, mọi nơi</li>
-        <li>Mở rộng linh hoạt</li>
-        <li>Trả phí theo mức sử dụng</li>
-        <li>Giảm chi phí vận hành</li>
+        <li>Truy cập mọi lúc, mọi nơi qua Internet</li>
+        <li>Mở rộng linh hoạt (scalability)</li>
+        <li>Trả phí theo mức sử dụng (pay-as-you-go)</li>
+        <li>Giảm chi phí vận hành và bảo trì</li>
     </ul>
 
-    <p><strong>Phân biệt IaaS – PaaS – SaaS</strong></p>
+    <p><strong>2. Phân biệt IaaS – PaaS – SaaS</strong></p>
     <p>
-        Website tĩnh trên Cloudflare Pages thuộc mô hình PaaS vì người dùng chỉ cần quản lý mã nguồn,
-        hạ tầng do Cloudflare đảm nhiệm.
+        IaaS cho phép người dùng quản lý hệ điều hành, ứng dụng và dữ liệu; nhà cung cấp quản lý hạ tầng
+        (ví dụ: AWS EC2, Google Compute). PaaS cho phép người dùng quản lý ứng dụng và dữ liệu, trong khi
+        nền tảng chịu trách nhiệm hạ tầng và môi trường triển khai (ví dụ: Cloudflare Pages, Heroku).
+        SaaS là mô hình người dùng chỉ sử dụng phần mềm, toàn bộ hệ thống do nhà cung cấp quản lý
+        (ví dụ: Gmail, Google Docs).
     </p>
 
-    <p><strong>CDN là gì?</strong></p>
-    <p>
-        CDN giúp phân phối nội dung từ máy chủ gần người dùng nhất,
-        tăng tốc truy cập và giảm rủi ro tấn công DDoS.
-    </p>
+    <p><strong>3. Website tĩnh thuộc mô hình cloud nào?</strong><br>
+    Website tĩnh thuộc mô hình PaaS vì người dùng chỉ cần viết HTML/CSS/JS,
+    không phải quản lý server hay hệ điều hành, toàn bộ quá trình deploy, HTTPS và CDN
+    do nền tảng Cloudflare Pages đảm nhiệm.</p>
 
-    <img src="yc1h1.png" alt="CDN demo">
-
-    <p><strong>Kiểm tra an toàn</strong></p>
+    <p><strong>4. Cloudflare Pages hoạt động theo cơ chế gì?</strong></p>
     <ul>
-        <li>SecurityHeaders: đánh giá HTTP Security Headers</li>
-        <li>PageSpeed Insights: đánh giá hiệu năng</li>
+        <li>Mã nguồn được lưu trữ trên GitHub</li>
+        <li>Cloudflare Pages kết nối repository</li>
+        <li>Khi có thay đổi, hệ thống tự động build và deploy</li>
+        <li>Nội dung được phân phối qua CDN toàn cầu</li>
+    </ul>
+
+    <p><strong>5. CDN phân phối nội dung ra sao?</strong><br>
+    CDN là mạng lưới máy chủ đặt tại nhiều vị trí địa lý khác nhau. Khi người dùng truy cập website,
+    CDN sẽ chọn máy chủ gần nhất để trả nội dung, giúp tăng tốc độ tải trang, giảm độ trễ,
+    giảm tải server gốc và tăng khả năng chống DDoS.</p>
+
+    <p><strong>6. Vai trò của CDN đối với hiệu năng và an toàn</strong></p>
+    <ul>
+        <li>Giảm độ trễ truy cập và tăng tốc độ tải trang</li>
+        <li>Giảm tải cho server gốc</li>
+        <li>Chống DDoS, ẩn IP server gốc</li>
+        <li>Tích hợp HTTPS và tường lửa WAF</li>
+    </ul>
+
+    <p><strong>7. Ví dụ minh họa</strong></p>
+    <img src="yc1h1.png" alt="CDN minh họa">
+
+    <p><strong>8. Rủi ro bảo mật còn tồn tại</strong></p>
+    <p>
+        Website vẫn có thể gặp các rủi ro như thiếu HTTP Security Headers, lộ mã nguồn nhạy cảm
+        trên GitHub, tấn công XSS phía client, cấu hình sai quyền truy cập repository
+        hoặc không kiểm tra bảo mật định kỳ.
+    </p>
+
+    <p><strong>9. Giải pháp</strong></p>
+    <ul>
+        <li>Bật và kiểm tra các HTTP Security Headers</li>
+        <li>Kiểm tra website bằng securityheaders.com và pagespeed.web.dev</li>
+        <li>Không lưu API key, token trong mã nguồn</li>
+        <li>Sử dụng GitHub Private Repository khi cần</li>
+        <li>Kiểm tra định kỳ cấu hình Cloudflare</li>
     </ul>
 </div>
 
@@ -156,55 +216,20 @@
 <div class="content" id="lab2">
     <h2>Lab Tuần 2 – Mô hình kiểm soát truy cập Zero Trust</h2>
 
-    <p><strong>Công cụ sử dụng:</strong></p>
-    <ul>
-        <li>Cloudflare Pages</li>
-        <li>Cloudflare Zero Trust / Access</li>
-        <li>GitHub</li>
-    </ul>
-
     <p>
         Cloudflare Access được triển khai để bảo vệ website tĩnh,
-        yêu cầu người dùng phải xác thực trước khi truy cập.
+        chỉ cho phép người dùng đã xác thực bằng Google hoặc GitHub
+        mới có thể truy cập nội dung.
     </p>
 
-    <h3>Mô hình Zero Trust</h3>
-    <p>
-        Zero Trust hoạt động theo nguyên lý
-        <strong>“Không tin tưởng mặc định – Luôn xác minh”</strong>.
-    </p>
-
+    <h3>Hành vi truy cập</h3>
     <ul>
-        <li>Người dùng gửi HTTPS request</li>
-        <li>Cloudflare Access chặn và kiểm tra</li>
-        <li>Xác thực bằng Google hoặc GitHub</li>
-        <li>Áp dụng policy truy cập</li>
-        <li>Cho phép hoặc từ chối truy cập</li>
+        <li><strong>Chưa xác thực:</strong> Bị chuyển hướng tới trang đăng nhập Cloudflare Access</li>
+        <li><strong>Xác thực sai:</strong> Hiển thị thông báo Access Denied</li>
+        <li><strong>Xác thực đúng:</strong> Website hiển thị bình thường</li>
     </ul>
 
-    <img src="zero-trust-diagram.png" alt="Zero Trust Diagram">
-
-    <h3>Kiểm thử hành vi truy cập</h3>
-
-    <p><strong>Chưa xác thực:</strong></p>
-    <ul>
-        <li>Bị chuyển hướng tới trang đăng nhập Cloudflare Access</li>
-    </ul>
-
-    <p><strong>Xác thực sai:</strong></p>
-    <ul>
-        <li>Hiển thị thông báo Access Denied</li>
-    </ul>
-
-    <p><strong>Xác thực đúng:</strong></p>
-    <ul>
-        <li>Website được hiển thị bình thường</li>
-    </ul>
-
-    <p>
-        Kết quả cho thấy Cloudflare Access giúp kiểm soát truy cập hiệu quả,
-        nâng cao đáng kể mức độ an toàn cho website tĩnh.
-    </p>
+    <img src="zero-trust-diagram.png" alt="Sơ đồ Zero Trust">
 </div>
 
 </div>
