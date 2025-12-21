@@ -79,12 +79,17 @@ header.full { left: 0; }
 /* ===== CONTENT ===== */
 .container {
     margin-top: 140px;
-    margin-left: 260px;
+    margin-left: auto;
+    margin-right: auto;
     padding: 20px;
     max-width: 1000px;
     transition: 0.3s;
+    transform: translateX(115px); /* nửa sidebar */
 }
-.container.full { margin-left: 40px; }
+
+.container.full {
+    transform: translateX(0);
+}
 
 .tab-content { display: none; }
 .tab-content.active { display: block; }
@@ -406,3 +411,4 @@ function openTab(id, btn) {
 
 </body>
 </html>
+
