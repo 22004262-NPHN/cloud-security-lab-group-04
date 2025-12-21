@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>LAB AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 html { scroll-behavior: smooth; }
@@ -15,82 +14,94 @@ body {
     color: #333;
 }
 
-/* ===== HEADER ===== */
-header {
+/* ===== SIDEBAR ===== */
+nav {
     position: fixed;
     top: 0;
-    width: 100%;
-    background: linear-gradient(135deg, #043915, #0a5c2c);
-    color: white;
-    text-align: center;
-    padding: 25px 15px;
-    z-index: 200;
+    left: 0;
+    width: 220px;
+    height: 100vh;
+    background: #043915;
+    padding-top: 60px;
     transition: all 0.3s ease;
+    z-index: 1000;
 }
 
-header.shrink {
-    padding: 8px 15px;
+nav.hide {
+    transform: translateX(-220px);
+}
+
+nav a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 12px 20px;
+    font-size: 15px;
+}
+
+nav a:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+/* ===== TOGGLE BUTTON ===== */
+.toggle-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: #043915;
+    color: #fff;
+    border: none;
+    font-size: 22px;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    z-index: 1100;
+}
+
+/* ===== HEADER ===== */
+header {
+    background: linear-gradient(135deg, #043915, #0a5c2c);
+    color: white;
+    padding: 40px 15px;
+    text-align: center;
+    margin-left: 220px;
+    transition: all 0.3s ease;
 }
 
 header h1 {
     margin: 0;
-    font-size: 26px;
-    transition: font-size 0.3s ease;
+    font-size: 34px;
+    transition: all 0.3s ease;
+}
+
+header.shrink {
+    padding: 15px 15px;
 }
 
 header.shrink h1 {
-    font-size: 18px;
+    font-size: 22px;
 }
 
-/* ===== TAB BAR ===== */
-.tab-bar {
-    position: fixed;
-    top: 90px;
-    width: 100%;
-    background: white;
-    display: flex;
-    justify-content: center;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-    z-index: 150;
-    transition: top 0.3s ease;
-}
-
-header.shrink + .tab-bar {
-    top: 50px;
-}
-
-.tab-bar button {
-    background: none;
-    border: none;
-    padding: 14px 22px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    color: #043915;
-}
-
-.tab-bar button.active {
-    border-bottom: 3px solid #0a5c2c;
-    color: #0a5c2c;
-}
-
-/* ===== CONTAINER ===== */
+/* ===== CONTENT ===== */
 .container {
     max-width: 1000px;
-    margin: 170px auto 40px;
+    margin: 40px auto;
     padding: 0 20px;
+    margin-left: 240px;
+    transition: all 0.3s ease;
 }
 
-/* ===== TAB CONTENT ===== */
-.tab-content {
-    display: none;
+.container.full {
+    margin-left: 40px;
 }
 
-.tab-content.active {
-    display: block;
+header.full,
+footer.full {
+    margin-left: 0;
 }
 
-/* ===== CONTENT BOX ===== */
+/* ===== BOX ===== */
 .content {
     background: #ffffff;
     padding: 30px;
@@ -101,18 +112,25 @@ header.shrink + .tab-bar {
 
 .content h2 {
     color: #0a5c2c;
+    margin-bottom: 20px;
     border-left: 5px solid #0a5c2c;
     padding-left: 12px;
 }
 
-.content h3 { color: #043915; }
+.content h3 {
+    color: #043915;
+    margin-top: 25px;
+}
 
 .content p {
     text-align: justify;
     line-height: 1.75;
 }
 
-ul, ol { margin-left: 25px; }
+ul, ol {
+    margin-left: 25px;
+    line-height: 1.7;
+}
 
 img {
     width: 900px;
@@ -120,17 +138,7 @@ img {
     display: block;
     margin: 25px auto;
     border-radius: 10px;
-}
-
-/* ===== MEMBERS ===== */
-.members-box {
-    background: rgba(255,255,255,0.15);
-    display: inline-block;
-    padding: 15px 25px;
-    border-radius: 10px;
-    font-size: 17px;
-    line-height: 1.6;
-    margin-top: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 /* ===== FOOTER ===== */
@@ -141,44 +149,45 @@ footer {
     color: #777;
     background: #ffffff;
     box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
+    margin-left: 220px;
+    transition: all 0.3s ease;
 }
 </style>
 </head>
 
 <body>
 
+<!-- TOGGLE -->
+<button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+    <a href="#members">👥 Thành viên</a>
+    <a href="#lab1">☁️ Lab 1 – Cloud & CDN</a>
+    <a href="#lab2">🔐 Lab 2 – Zero Trust</a>
+</nav>
+
+<!-- HEADER -->
 <header id="header">
     <h1>LAB AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</h1>
-    <div class="members-box">
+</header>
+
+<div class="container" id="container">
+
+<!-- THÀNH VIÊN -->
+<div class="content" id="members">
+    <h2>Thông tin thành viên</h2>
+    <p>
         22004262 – Nguyễn Phúc Hạnh Nguyên<br>
         22004263 – Trần Ngọc Mỹ Duyên<br>
         22004285 – Võ Đinh Hoàng Mỹ
-    </div>
-</header>
-
-<!-- ===== TAB BAR ===== -->
-<div class="tab-bar">
-    <button class="tab-btn active" onclick="openTab('members')">👥 Thành viên</button>
-    <button class="tab-btn" onclick="openTab('lab1')">☁️ Lab 1</button>
-    <button class="tab-btn" onclick="openTab('lab2')">🔐 Lab 2</button>
+    </p>
 </div>
 
-<div class="container">
-
-<!-- ===== TAB THÀNH VIÊN ===== -->
-<div id="members" class="tab-content active">
-    <div class="content">
-        <h2>Thông tin nhóm</h2>
-        <p><strong>Môn học:</strong> An toàn điện toán đám mây</p>
-        <p><strong>Đề tài:</strong> Triển khai Website Tĩnh với Cloudflare Pages & Zero Trust</p>
-    </div>
-</div>
-
-<!-- ===== LAB 1 (GIỮ NGUYÊN NỘI DUNG) ===== -->
-<div id="lab1" class="tab-content">
-    <!-- DÁN NGUYÊN KHỐI NỘI DUNG LAB 1 CỦA BẠN VÀO ĐÂY -->
-    <div class="content">
-<h2>Yêu cầu 1: Kiến thức cơ bản</h2>
+<!-- LAB 1 -->
+<div class="content" id="lab1">
+    <!-- GIỮ NGUYÊN NỘI DUNG LAB 1 -->
+    <h2>Yêu cầu 1: Kiến thức cơ bản</h2>
 
     <p><strong>1. Cloud Computing là gì?</strong><br>
     Cloud Computing (Điện toán đám mây) là mô hình cung cấp tài nguyên CNTT như máy chủ, lưu trữ,
@@ -247,13 +256,11 @@ footer {
         <li>Kiểm tra định kỳ cấu hình Cloudflare</li>
     </ul>
 </div>
-</div>
 
-<!-- ===== LAB 2 (GIỮ NGUYÊN NỘI DUNG) ===== -->
-<div id="lab2" class="tab-content">
-    <!-- DÁN NGUYÊN KHỐI NỘI DUNG LAB 2 CỦA BẠN VÀO ĐÂY -->
-    <div class="content">
-<h2>Lab Tuần 2 – Zero Trust & Kiểm soát truy cập</h2>
+<!-- LAB 2 -->
+<div class="content" id="lab2">
+    <!-- GIỮ NGUYÊN NỘI DUNG LAB 2 -->
+    <h2>Lab Tuần 2 – Zero Trust & Kiểm soát truy cập</h2>
 
     <h3>I. Yêu cầu 1: Kiến thức nền tảng</h3>
 
@@ -370,31 +377,33 @@ footer {
 
     <img src="lab2.png" alt="Sơ đồ Zero Trust">
 </div>
-</div>
 
 </div>
 
-<footer>
+<footer id="footer">
     © 2025 – Demo Website Tĩnh với GitHub & Cloudflare Pages – Nhóm 4
 </footer>
 
 <script>
-function openTab(tabId) {
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-
-    document.getElementById(tabId).classList.add('active');
-    event.target.classList.add('active');
-}
-
-// Thu nhỏ header khi cuộn
-window.addEventListener('scroll', () => {
-    const header = document.getElementById('header');
-    if (window.scrollY > 50) header.classList.add('shrink');
-    else header.classList.remove('shrink');
+/* Shrink header */
+window.addEventListener("scroll", function () {
+    document.getElementById("header")
+        .classList.toggle("shrink", window.scrollY > 80);
 });
+
+/* Toggle sidebar */
+function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const container = document.getElementById("container");
+    const header = document.getElementById("header");
+    const footer = document.getElementById("footer");
+
+    sidebar.classList.toggle("hide");
+    container.classList.toggle("full");
+    header.classList.toggle("full");
+    footer.classList.toggle("full");
+}
 </script>
 
 </body>
 </html>
-
