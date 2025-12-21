@@ -1,136 +1,154 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <title>Triển khai Website Tĩnh với Cloudflare Pages</title>
+<meta charset="UTF-8">
+<title>LAB AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        html {
-            scroll-behavior: smooth;
-        }
+<style>
+html { scroll-behavior: smooth; }
 
-        body {
-            margin: 0;
-            font-family: "Segoe UI", Arial, sans-serif;
-            background: #f4f6f8;
-            color: #333;
-        }
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f6f8;
+    color: #333;
+}
 
-        /* ===== NAVBAR ===== */
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: white;
-            padding: 12px 0;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
+/* ===== HEADER ===== */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: linear-gradient(135deg, #043915, #0a5c2c);
+    color: white;
+    text-align: center;
+    padding: 25px 15px;
+    z-index: 200;
+    transition: all 0.3s ease;
+}
 
-        nav a {
-            text-decoration: none;
-            font-weight: 600;
-            color: #043915;
-            margin: 0 15px;
-            font-size: 15px;
-        }
+header.shrink {
+    padding: 8px 15px;
+}
 
-        nav a:hover {
-            text-decoration: underline;
-        }
+header h1 {
+    margin: 0;
+    font-size: 26px;
+    transition: font-size 0.3s ease;
+}
 
-        /* ===== HEADER ===== */
-        header {
-            background: linear-gradient(135deg, #043915, #0a5c2c);
-            color: white;
-            padding: 35px 15px;
-            text-align: center;
-        }
+header.shrink h1 {
+    font-size: 18px;
+}
 
-        header h1 {
-            margin-bottom: 15px;
-        }
+/* ===== TAB BAR ===== */
+.tab-bar {
+    position: fixed;
+    top: 90px;
+    width: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    z-index: 150;
+    transition: top 0.3s ease;
+}
 
-        /* ===== MEMBER SECTION ===== */
-        .members-box {
-            background: rgba(255,255,255,0.15);
-            display: inline-block;
-            padding: 15px 25px;
-            border-radius: 10px;
-            font-size: 17px;
-            line-height: 1.6;
-        }
+header.shrink + .tab-bar {
+    top: 50px;
+}
 
-        /* ===== LAYOUT ===== */
-        .container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
+.tab-bar button {
+    background: none;
+    border: none;
+    padding: 14px 22px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #043915;
+}
 
-        .content {
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-            margin-bottom: 35px;
-        }
+.tab-bar button.active {
+    border-bottom: 3px solid #0a5c2c;
+    color: #0a5c2c;
+}
 
-        .content h2 {
-            color: #0a5c2c;
-            margin-bottom: 20px;
-            border-left: 5px solid #0a5c2c;
-            padding-left: 12px;
-        }
+/* ===== CONTAINER ===== */
+.container {
+    max-width: 1000px;
+    margin: 170px auto 40px;
+    padding: 0 20px;
+}
 
-        .content h3 {
-            color: #043915;
-            margin-top: 25px;
-        }
+/* ===== TAB CONTENT ===== */
+.tab-content {
+    display: none;
+}
 
-        .content p {
-            text-align: justify;
-            line-height: 1.75;
-        }
+.tab-content.active {
+    display: block;
+}
 
-        ul, ol {
-            margin-left: 25px;
-            line-height: 1.7;
-        }
+/* ===== CONTENT BOX ===== */
+.content {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    margin-bottom: 35px;
+}
 
-        img {
-            width: 900px;
-            max-width: 100%;
-            display: block;
-            margin: 25px auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
+.content h2 {
+    color: #0a5c2c;
+    border-left: 5px solid #0a5c2c;
+    padding-left: 12px;
+}
 
-        /* ===== FOOTER ===== */
-        footer {
-            text-align: center;
-            padding: 18px;
-            font-size: 14px;
-            color: #777;
-            background: #ffffff;
-            box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
-        }
-    </style>
+.content h3 { color: #043915; }
+
+.content p {
+    text-align: justify;
+    line-height: 1.75;
+}
+
+ul, ol { margin-left: 25px; }
+
+img {
+    width: 900px;
+    max-width: 100%;
+    display: block;
+    margin: 25px auto;
+    border-radius: 10px;
+}
+
+/* ===== MEMBERS ===== */
+.members-box {
+    background: rgba(255,255,255,0.15);
+    display: inline-block;
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-size: 17px;
+    line-height: 1.6;
+    margin-top: 15px;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    text-align: center;
+    padding: 18px;
+    font-size: 14px;
+    color: #777;
+    background: #ffffff;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
+}
+</style>
 </head>
 
 <body>
 
-<!-- ===== MENU ĐIỀU HƯỚNG ===== -->
-<nav>
-    <a href="#members">👥 Thành viên</a>
-    <a href="#lab1">☁️ Lab 1 – Cloud & CDN</a>
-    <a href="#lab2">🔐 Lab 2 – Zero Trust</a>
-</nav>
-
-<!-- ===== HEADER + THÀNH VIÊN ===== -->
-<header id="members">
-    <h1>Triển khai Website Tĩnh với Cloudflare Pages</h1>
+<header id="header">
+    <h1>LAB AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</h1>
     <div class="members-box">
         22004262 – Nguyễn Phúc Hạnh Nguyên<br>
         22004263 – Trần Ngọc Mỹ Duyên<br>
@@ -138,200 +156,33 @@
     </div>
 </header>
 
+<!-- ===== TAB BAR ===== -->
+<div class="tab-bar">
+    <button class="tab-btn active" onclick="openTab('members')">👥 Thành viên</button>
+    <button class="tab-btn" onclick="openTab('lab1')">☁️ Lab 1</button>
+    <button class="tab-btn" onclick="openTab('lab2')">🔐 Lab 2</button>
+</div>
+
 <div class="container">
 
-<!-- ================= LAB 1 (GIỮ NGUYÊN NỘI DUNG) ================= -->
-<div class="content" id="lab1">
-    <h2>Yêu cầu 1: Kiến thức cơ bản</h2>
-
-    <p><strong>1. Cloud Computing là gì?</strong><br>
-    Cloud Computing (Điện toán đám mây) là mô hình cung cấp tài nguyên CNTT như máy chủ, lưu trữ,
-    cơ sở dữ liệu, mạng và phần mềm thông qua Internet theo hình thức dịch vụ.
-    Người dùng không cần đầu tư hạ tầng vật lý mà chỉ sử dụng và trả phí theo mức độ dùng.</p>
-
-    <p><strong>Đặc điểm chính:</strong></p>
-    <ul>
-        <li>Truy cập mọi lúc, mọi nơi qua Internet</li>
-        <li>Mở rộng linh hoạt (scalability)</li>
-        <li>Trả phí theo mức sử dụng (pay-as-you-go)</li>
-        <li>Giảm chi phí vận hành và bảo trì</li>
-    </ul>
-
-    <p><strong>2. Phân biệt IaaS – PaaS – SaaS</strong></p>
-    <p>
-        IaaS cho phép người dùng quản lý hệ điều hành, ứng dụng và dữ liệu; nhà cung cấp quản lý hạ tầng
-        (ví dụ: AWS EC2, Google Compute). PaaS cho phép người dùng quản lý ứng dụng và dữ liệu, trong khi
-        nền tảng chịu trách nhiệm hạ tầng và môi trường triển khai (ví dụ: Cloudflare Pages, Heroku).
-        SaaS là mô hình người dùng chỉ sử dụng phần mềm, toàn bộ hệ thống do nhà cung cấp quản lý
-        (ví dụ: Gmail, Google Docs).
-    </p>
-
-    <p><strong>3. Website tĩnh thuộc mô hình cloud nào?</strong><br>
-    Website tĩnh thuộc mô hình PaaS vì người dùng chỉ cần viết HTML/CSS/JS,
-    không phải quản lý server hay hệ điều hành, toàn bộ quá trình deploy, HTTPS và CDN
-    do nền tảng Cloudflare Pages đảm nhiệm.</p>
-
-    <p><strong>4. Cloudflare Pages hoạt động theo cơ chế gì?</strong></p>
-    <ul>
-        <li>Mã nguồn được lưu trữ trên GitHub</li>
-        <li>Cloudflare Pages kết nối repository</li>
-        <li>Khi có thay đổi, hệ thống tự động build và deploy</li>
-        <li>Nội dung được phân phối qua CDN toàn cầu</li>
-    </ul>
-
-    <p><strong>5. CDN phân phối nội dung ra sao?</strong><br>
-    CDN là mạng lưới máy chủ đặt tại nhiều vị trí địa lý khác nhau. Khi người dùng truy cập website,
-    CDN sẽ chọn máy chủ gần nhất để trả nội dung, giúp tăng tốc độ tải trang, giảm độ trễ,
-    giảm tải server gốc và tăng khả năng chống DDoS.</p>
-
-    <p><strong>6. Vai trò của CDN đối với hiệu năng và an toàn</strong></p>
-    <ul>
-        <li>Giảm độ trễ truy cập và tăng tốc độ tải trang</li>
-        <li>Giảm tải cho server gốc</li>
-        <li>Chống DDoS, ẩn IP server gốc</li>
-        <li>Tích hợp HTTPS và tường lửa WAF</li>
-    </ul>
-
-    <p><strong>7. Ví dụ minh họa</strong></p>
-    <img src="yc1h1.png" alt="CDN minh họa">
-
-    <p><strong>8. Rủi ro bảo mật còn tồn tại</strong></p>
-    <p>
-        Website vẫn có thể gặp các rủi ro như thiếu HTTP Security Headers, lộ mã nguồn nhạy cảm
-        trên GitHub, tấn công XSS phía client, cấu hình sai quyền truy cập repository
-        hoặc không kiểm tra bảo mật định kỳ.
-    </p>
-
-    <p><strong>9. Giải pháp</strong></p>
-    <ul>
-        <li>Bật và kiểm tra các HTTP Security Headers</li>
-        <li>Kiểm tra website bằng securityheaders.com và pagespeed.web.dev</li>
-        <li>Không lưu API key, token trong mã nguồn</li>
-        <li>Sử dụng GitHub Private Repository khi cần</li>
-        <li>Kiểm tra định kỳ cấu hình Cloudflare</li>
-    </ul>
+<!-- ===== TAB THÀNH VIÊN ===== -->
+<div id="members" class="tab-content active">
+    <div class="content">
+        <h2>Thông tin nhóm</h2>
+        <p><strong>Môn học:</strong> An toàn điện toán đám mây</p>
+        <p><strong>Đề tài:</strong> Triển khai Website Tĩnh với Cloudflare Pages & Zero Trust</p>
+    </div>
 </div>
 
-<!-- ================= LAB 2 ================= -->
-<div class="content" id="lab2">
-    <h2>Lab Tuần 2 – Zero Trust & Kiểm soát truy cập</h2>
-
-    <h3>I. Yêu cầu 1: Kiến thức nền tảng</h3>
-
-    <p><strong>1. Authentication vs Authorization</strong></p>
-
-    <p><strong>Authentication (Xác thực)</strong><br>
-    Là quá trình xác minh danh tính của người dùng, đảm bảo người truy cập đúng là người họ khai báo.
-    Các phương pháp phổ biến gồm username/password, MFA, sinh trắc học (vân tay, khuôn mặt).</p>
-
-    <p><strong>Authorization (Phân quyền)</strong><br>
-    Là quá trình cấp quyền sau khi xác thực thành công, xác định người dùng được phép truy cập
-    tài nguyên hoặc thực hiện hành động nào trong hệ thống.</p>
-
-    <p><strong>Ví dụ:</strong><br>
-    Đăng nhập thành công là Authentication, còn việc cho phép xem, sửa hay xóa dữ liệu là Authorization.</p>
-
-    <h3>2. Identity and Access Management (IAM)</h3>
-
-    <p>
-        IAM (Identity and Access Management) là tập hợp các chính sách, quy trình và công cụ
-        dùng để quản lý danh tính và quyền truy cập của người dùng vào tài nguyên hệ thống.
-    </p>
-
-    <p><strong>Vai trò của IAM trong Cloud:</strong></p>
-    <ul>
-        <li>Quản lý người dùng và danh tính</li>
-        <li>Kiểm soát quyền truy cập tài nguyên cloud</li>
-        <li>Hạn chế truy cập trái phép</li>
-        <li>Hỗ trợ MFA và phân quyền chi tiết</li>
-    </ul>
-
-    <h3>3. Zero Trust Security Model</h3>
-
-    <p>
-        Zero Trust là mô hình bảo mật với nguyên tắc
-        <strong>“Không tin tưởng bất kỳ ai – Always Verify”</strong>,
-        kể cả người dùng nội bộ.
-    </p>
-
-    <p><strong>Nguyên lý Zero Trust:</strong></p>
-    <ol>
-        <li>Không mặc định tin cậy bất kỳ ai</li>
-        <li>Xác thực và phân quyền cho mọi yêu cầu</li>
-        <li>Phân quyền tối thiểu (Least Privilege)</li>
-        <li>Giám sát và đánh giá liên tục</li>
-    </ol>
-
-    <h3>II. Yêu cầu 3: Phân tích rủi ro truy cập website</h3>
-
-    <p><strong>1. Website public hoàn toàn</strong></p>
-    <ul>
-        <li>Dễ bị tấn công DDoS</li>
-        <li>Bề mặt tấn công rộng (XSS, SQL Injection)</li>
-        <li>Nguy cơ rò rỉ dữ liệu nếu cấu hình sai</li>
-    </ul>
-
-    <p><strong>2. Website có IAM</strong></p>
-    <ul>
-        <li>Nguy cơ đánh cắp thông tin đăng nhập</li>
-        <li>Phân quyền sai dẫn đến leo thang đặc quyền</li>
-        <li>Tấn công từ người dùng nội bộ</li>
-    </ul>
-
-    <p><strong>3. Website có IAM nhưng không Zero Trust</strong></p>
-    <ul>
-        <li>Tin cậy quá mức sau khi đăng nhập</li>
-        <li>Dễ bị di chuyển ngang trong hệ thống</li>
-        <li>Không kiểm soát thiết bị và ngữ cảnh</li>
-    </ul>
-
-    <h3>III. So sánh mô hình bảo mật</h3>
-
-    <table style="width:100%; border-collapse: collapse;">
-        <tr style="background:#f0f0f0;">
-            <th style="border:1px solid #ccc; padding:8px;">Tiêu chí</th>
-            <th style="border:1px solid #ccc; padding:8px;">Truyền thống</th>
-            <th style="border:1px solid #ccc; padding:8px;">Zero Trust</th>
-        </tr>
-        <tr>
-            <td style="border:1px solid #ccc; padding:8px;">Nguyên tắc tin cậy</td>
-            <td style="border:1px solid #ccc; padding:8px;">Tin cậy nội bộ</td>
-            <td style="border:1px solid #ccc; padding:8px;">Không tin cậy ai</td>
-        </tr>
-        <tr>
-            <td style="border:1px solid #ccc; padding:8px;">Xác thực</td>
-            <td style="border:1px solid #ccc; padding:8px;">Một lần</td>
-            <td style="border:1px solid #ccc; padding:8px;">Liên tục</td>
-        </tr>
-        <tr>
-            <td style="border:1px solid #ccc; padding:8px;">Phân quyền</td>
-            <td style="border:1px solid #ccc; padding:8px;">Rộng</td>
-            <td style="border:1px solid #ccc; padding:8px;">Tối thiểu</td>
-        </tr>
-        <tr>
-            <td style="border:1px solid #ccc; padding:8px;">Phù hợp Cloud</td>
-            <td style="border:1px solid #ccc; padding:8px;">Không</td>
-            <td style="border:1px solid #ccc; padding:8px;">Rất phù hợp</td>
-        </tr>
-    </table>
-
-    <h3>IV. Áp dụng Zero Trust với Cloudflare Access</h3>
-
-    <p>
-        Cloudflare Access được sử dụng để bảo vệ website tĩnh,
-        chỉ cho phép người dùng đã xác thực (Google/GitHub)
-        mới có thể truy cập nội dung.
-    </p>
-
-    <ul>
-        <li><strong>Chưa đăng nhập:</strong> Chuyển hướng đến trang xác thực</li>
-        <li><strong>Đăng nhập sai:</strong> Access Denied</li>
-        <li><strong>Đăng nhập đúng:</strong> Website hiển thị</li>
-    </ul>
-
-    <img src="lab2.png" alt="Sơ đồ Zero Trust">
+<!-- ===== LAB 1 (GIỮ NGUYÊN NỘI DUNG) ===== -->
+<div id="lab1" class="tab-content">
+    <!-- DÁN NGUYÊN KHỐI NỘI DUNG LAB 1 CỦA BẠN VÀO ĐÂY -->
 </div>
 
+<!-- ===== LAB 2 (GIỮ NGUYÊN NỘI DUNG) ===== -->
+<div id="lab2" class="tab-content">
+    <!-- DÁN NGUYÊN KHỐI NỘI DUNG LAB 2 CỦA BẠN VÀO ĐÂY -->
+</div>
 
 </div>
 
@@ -339,7 +190,22 @@
     © 2025 – Demo Website Tĩnh với GitHub & Cloudflare Pages – Nhóm 4
 </footer>
 
+<script>
+function openTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+    document.getElementById(tabId).classList.add('active');
+    event.target.classList.add('active');
+}
+
+// Thu nhỏ header khi cuộn
+window.addEventListener('scroll', () => {
+    const header = document.getElementById('header');
+    if (window.scrollY > 50) header.classList.add('shrink');
+    else header.classList.remove('shrink');
+});
+</script>
+
 </body>
 </html>
-
-
