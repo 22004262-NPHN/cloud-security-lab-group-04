@@ -11,6 +11,10 @@ body {
     font-family: "Segoe UI", Arial, sans-serif;
     background: #f4f6f8;
     color: #333;
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* ===== SIDEBAR ===== */
@@ -85,6 +89,7 @@ header.full { left: 0; }
     max-width: 1000px;
     transition: 0.3s;
     transform: translateX(115px); /* nửa sidebar */
+    flex: 1; /* ĐẨY FOOTER XUỐNG DƯỚI */
 }
 
 .container.full {
@@ -411,4 +416,5 @@ function openTab(id, btn) {
 
 </body>
 </html>
+
 
