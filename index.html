@@ -388,7 +388,7 @@ footer.full { margin-left: 0; }
 <div class="content">
 <h2>Lab Tuần 4 – Giám sát, Nhật ký và Phát hiện bất thường</h2>
 
-<h3>I. Yêu cầu 1: Kiến thức cơ bản</h3>
+<h3>I. Yêu cầu 1:</h3>
 
 <p><strong>1. Monitoring là gì?</strong></p>
 <p><strong>Khái niệm:</strong> Monitoring (giám sát) là việc theo dõi liên tục tình trạng và hiệu suất của hệ thống trong thời gian thực.</p>
@@ -446,10 +446,17 @@ footer.full { margin-left: 0; }
 <p><strong>3. Security Visibility trong Cloud</strong></p>
 <p><strong>Khái niệm:</strong> Security Visibility là khả năng nhìn thấy và kiểm soát toàn bộ hoạt động bảo mật trong môi trường cloud.</p>
 
+<p><strong>Nội dung:</strong></p>
 <ul>
 <li>Kết hợp monitoring và logging</li>
 <li>Theo dõi hành vi người dùng</li>
 <li>Phát hiện tấn công sớm</li>
+</ul>
+
+<p><strong>Mục đích:</strong></p>
+<ul>
+<li>Tránh “điểm mù” bảo mật trong cloud</li>
+<li>Nâng cao khả năng phản ứng sự cố</li>
 </ul>
 
 <p><strong>Đánh giá:</strong></p>
@@ -463,8 +470,8 @@ footer.full { margin-left: 0; }
 
 <p><strong>4. Vai trò Monitoring & Logging trong Cloud</strong></p>
 <ul>
-<li><strong>Monitoring:</strong> Giám sát tài nguyên, cảnh báo sập dịch vụ</li>
-<li><strong>Logging:</strong> Ghi lại hành vi, hỗ trợ điều tra và audit</li>
+<li><strong>Monitoring:</strong> Giám sát tài nguyên, phát hiện, cảnh báo sập dịch vụ -> Giúp hệ thống chạy ổn định</li>
+<li><strong>Logging:</strong> Ghi lại hành vi, hỗ trợ điều tra và audit -> Giúp hiểu rõ chuyện gì đã xảy ra</li>
 </ul>
 
 <hr>
@@ -494,30 +501,454 @@ footer.full { margin-left: 0; }
 </table>
 
 <h3>II. Yêu cầu 2: Đối tượng cần giám sát</h3>
+
+<h4>1. Người dùng truy cập hệ thống</h4>
+
+<p><strong>Vì sao cần giám sát?</strong></p>
 <ul>
-<li>Người dùng truy cập hệ thống</li>
-<li>Phiên đăng nhập (session)</li>
-<li>Hoạt động đăng nhập / đăng xuất</li>
-<li>Các yêu cầu truy cập bất thường</li>
-<li>Các lỗi phát sinh trong hệ thống</li>
+<li>Biết ai đang sử dụng hệ thống</li>
+<li>Phát hiện truy cập trái phép</li>
+<li>Theo dõi hành vi bất thường (IP lạ, quốc gia lạ)</li>
 </ul>
+
+<p><strong>Rủi ro nếu không giám sát</strong></p>
+<ul>
+<li>Hacker truy cập mà không bị phát hiện</li>
+<li>Không biết ai gây ra sự cố</li>
+<li>Mất dữ liệu, lộ thông tin người dùng</li>
+</ul>
+
+<hr>
+
+<h4>2. Phiên đăng nhập (Session)</h4>
+
+<p><strong>Vì sao cần giám sát?</strong></p>
+<ul>
+<li>Kiểm soát thời gian và số lượng session</li>
+<li>Phát hiện session bị chiếm quyền</li>
+<li>Ngăn chặn đăng nhập đồng thời bất thường</li>
+</ul>
+
+<p><strong>Rủi ro nếu không giám sát</strong></p>
+<ul>
+<li>Người khác sử dụng session của nạn nhân</li>
+<li>Tấn công chiếm quyền tài khoản</li>
+<li>Vi phạm bảo mật dữ liệu</li>
+</ul>
+
+<hr>
+
+<h4>3. Hoạt động đăng nhập / đăng xuất</h4>
+
+<p><strong>Vì sao cần giám sát?</strong></p>
+<ul>
+<li>Theo dõi tần suất đăng nhập</li>
+<li>Phát hiện brute-force, password spraying</li>
+<li>Biết thời điểm người dùng truy cập hệ thống</li>
+</ul>
+
+<p><strong>Rủi ro nếu không giám sát</strong></p>
+<ul>
+<li>Không phát hiện tấn công dò mật khẩu</li>
+<li>Không biết tài khoản bị xâm nhập khi nào</li>
+<li>Khó điều tra sự cố bảo mật</li>
+</ul>
+
+<hr>
+
+<h4>4. Các yêu cầu truy cập bất thường</h4>
+
+<p><strong>Vì sao cần giám sát?</strong></p>
+<ul>
+<li>Phát hiện request bất thường (quá nhiều, sai cấu trúc)</li>
+<li>Phát hiện tấn công DDoS, SQL Injection, XSS</li>
+<li>Bảo vệ API và web server</li>
+</ul>
+
+<p><strong>Rủi ro nếu không giám sát</strong></p>
+<ul>
+<li>Website bị tấn công mà không biết</li>
+<li>Server quá tải, sập dịch vụ</li>
+<li>Lộ dữ liệu, bị chiếm quyền điều khiển</li>
+</ul>
+
+<hr>
+
+<h4>5. Các lỗi phát sinh trong hệ thống</h4>
+
+<p><strong>Vì sao cần giám sát?</strong></p>
+<ul>
+<li>Phát hiện lỗi ứng dụng kịp thời</li>
+<li>Đảm bảo website hoạt động ổn định</li>
+<li>Cải thiện trải nghiệm người dùng</li>
+</ul>
+
+<p><strong>Rủi ro nếu không giám sát</strong></p>
+<ul>
+<li>Lỗi kéo dài gây downtime</li>
+<li>Người dùng rời bỏ hệ thống</li>
+<li>Khó tìm nguyên nhân khi xảy ra sự cố</li>
+</ul>
+
+<hr>
+
+<h3>Phân biệt Monitoring và Logging qua các tình huống</h3>
+
+<h4>1. Phát hiện số lần đăng nhập thất bại tăng đột biến</h4>
+
+<p><strong>Phù hợp:</strong> Monitoring</p>
+
+<ul>
+<li>Cần phát hiện ngay lập tức</li>
+<li>Số lần đăng nhập thất bại là một chỉ số (metric)</li>
+<li>Có thể cấu hình cảnh báo tự động</li>
+</ul>
+
+<p><strong>Ví dụ:</strong></p>
+<p>
+Nếu số lần login fail &gt; 100 lần/phút → hệ thống phát cảnh báo tấn công brute-force.
+</p>
+
+<hr>
+
+<h4>2. Điều tra ai đã truy cập hệ thống vào thời điểm xảy ra sự cố</h4>
+
+<p><strong>Phù hợp:</strong> Logging</p>
+
+<ul>
+<li>Cần dữ liệu trong quá khứ</li>
+<li>Xem chi tiết tài khoản người dùng, địa chỉ IP và thời gian truy cập</li>
+<li>Phục vụ điều tra sự cố và forensic</li>
+</ul>
+
+<p><strong>Ví dụ:</strong></p>
+<p>
+Phân tích log cho thấy user A đăng nhập lúc 02:13 từ địa chỉ IP xác định.
+</p>
+
+<hr>
+
+<h4>3. Xác định nguyên nhân gây lỗi hệ thống</h4>
+
+<p><strong>Phù hợp:</strong> Logging (kết hợp Monitoring)</p>
+
+<ul>
+<li>Monitoring giúp phát hiện có lỗi xảy ra</li>
+<li>Logging giúp xác định lỗi gì, xảy ra ở đâu và vì sao</li>
+<li>Cần phân tích stack trace, error log và event log</li>
+</ul>
+
+<p><strong>Ví dụ:</strong></p>
+<p>
+Monitoring cảnh báo server error, trong khi logging cho biết nguyên nhân là lỗi database timeout.
+</p>
+
 
 <h3>III. Yêu cầu 3: Phân tích hành vi bất thường</h3>
+
+<h4>1. Các dấu hiệu thể hiện hành vi bất thường</h4>
+<p>
+Trong tình huống giả định trong vòng 10 phút, hệ thống ghi nhận các dấu hiệu bất thường sau:
+</p>
+
+<h4>Số lượng request tăng cao bất thường</h4>
 <ul>
-<li>Request tăng đột biến</li>
-<li>Nhiều lần đăng nhập thất bại</li>
-<li>IP / vị trí không quen thuộc</li>
+<li>Lưu lượng truy cập (traffic) tăng đột ngột trong thời gian ngắn</li>
+<li>Số request/giây (Requests Per Second – RPS) vượt ngưỡng trung bình thông thường</li>
+<li>Có thể xuất phát từ:</li>
+<ul>
+<li>Tấn công DDoS</li>
+<li>Bot tự động quét hệ thống</li>
+<li>Tấn công brute-force mật khẩu</li>
+</ul>
 </ul>
 
-<p><strong>Nhận xét:</strong> Monitoring phát hiện có bất thường, Logging trả lời bất thường đó là gì và do ai gây ra.</p>
+<h4>Nhiều lần đăng nhập thất bại liên tiếp</h4>
+<ul>
+<li>Một hoặc nhiều tài khoản bị đăng nhập sai mật khẩu liên tục</li>
+<li>Tần suất thất bại cao hơn hành vi người dùng bình thường</li>
+<li>Dấu hiệu điển hình của:</li>
+<ul>
+<li>Brute-force attack</li>
+<li>Credential stuffing</li>
+</ul>
+</ul>
+
+<h4>Truy cập từ địa chỉ IP hoặc vị trí không quen thuộc</h4>
+<ul>
+<li>Địa chỉ IP chưa từng xuất hiện trước đó trong hệ thống</li>
+<li>IP đến từ các nguồn không quen thuộc như:</li>
+<ul>
+<li>Quốc gia khác</li>
+<li>Proxy, VPN hoặc mạng Tor</li>
+</ul>
+<li>Thời điểm truy cập không phù hợp với thói quen người dùng</li>
+</ul>
+
+<hr>
+
+<h4>2. Dấu hiệu chỉ có thể phát hiện nhờ Monitoring</h4>
+<p>
+Monitoring tập trung theo dõi các chỉ số tổng thể theo thời gian thực (metrics).
+</p>
+
+<ul>
+<li><strong>Tăng đột biến số lượng request</strong>
+<ul>
+<li>Requests per second (RPS)</li>
+<li>Network traffic (bps)</li>
+<li>CPU / Memory tăng bất thường</li>
+</ul>
+</li>
+
+<li><strong>Gia tăng số lượng lỗi</strong>
+<ul>
+<li>Tỷ lệ HTTP 401 / 403 / 500 tăng cao</li>
+</ul>
+</li>
+
+<li><strong>Thời gian phản hồi tăng</strong>
+<ul>
+<li>Response time / Latency tăng bất thường</li>
+</ul>
+</li>
+</ul>
+
+<hr>
+
+<h4>3. Dấu hiệu chỉ có thể phát hiện nhờ Log</h4>
+<p>
+Log ghi lại chi tiết từng sự kiện riêng lẻ xảy ra trong hệ thống.
+</p>
+
+<ul>
+<li><strong>Nhiều lần đăng nhập thất bại liên tiếp</strong>
+<ul>
+<li>Tên tài khoản (Username)</li>
+<li>Thời gian từng lần đăng nhập</li>
+<li>Lý do thất bại (sai mật khẩu, tài khoản bị khóa…)</li>
+</ul>
+</li>
+
+<li><strong>IP hoặc vị trí không quen thuộc</strong>
+<ul>
+<li>Địa chỉ IP cụ thể</li>
+<li>Quốc gia / vùng địa lý</li>
+<li>User-Agent (trình duyệt, thiết bị)</li>
+</ul>
+</li>
+
+<li><strong>Hành vi bất thường theo chuỗi</strong>
+<ul>
+<li>Một địa chỉ IP thử đăng nhập nhiều tài khoản</li>
+<li>Một tài khoản đăng nhập từ nhiều IP khác nhau trong thời gian ngắn</li>
+</ul>
+</li>
+</ul>
+
+<hr>
+
+<h4>4. Nhận xét: Hệ thống chỉ có monitoring mà không có log sẽ thiếu gì?</h4>
+
+<p>Nếu hệ thống chỉ có monitoring mà không có log, sẽ gặp các hạn chế sau:</p>
+
+<ul>
+<li><strong>Thiếu thông tin chi tiết</strong>
+<ul>
+<li>Không biết IP nào gây ra tấn công</li>
+<li>Không biết tài khoản nào bị thử đăng nhập</li>
+<li>Không xác định được chuỗi hành vi cụ thể</li>
+</ul>
+</li>
+
+<li><strong>Không có bằng chứng</strong>
+<ul>
+<li>Không thể điều tra sự cố</li>
+<li>Không thể truy vết (forensics)</li>
+<li>Không thể lập báo cáo an ninh</li>
+</ul>
+</li>
+
+<li><strong>Hạn chế nghiêm trọng trong phân tích</strong>
+<ul>
+<li>Không phân biệt được tấn công thực sự hay lỗi từ người dùng hợp lệ</li>
+<li>Không hỗ trợ cải thiện các rule phát hiện trong tương lai</li>
+</ul>
+</li>
+</ul>
+
+<p>
+<strong>Kết luận:</strong> Monitoring giúp phát hiện “có bất thường”, còn Logging giúp trả lời “bất thường đó là gì và do ai gây ra”. Hai thành phần này phải được kết hợp thì hệ thống an ninh mới hiệu quả.
+</p>
+
+<hr>
 
 <h3>IV. Yêu cầu 4: Log & Incident Response</h3>
+
+<h4>1. Vai trò của log trong điều tra sự cố an toàn thông tin</h4>
+<p>
+Log là nguồn dữ liệu bằng chứng số (digital evidence), ghi lại toàn bộ hoạt động xảy ra trong hệ thống. Khi sự cố an toàn thông tin xảy ra, log giúp tái dựng lại chuỗi sự kiện và xác định nguyên nhân gốc rễ (root cause).
+</p>
+
+<h4>2. Log giúp trả lời những câu hỏi nào khi xảy ra sự cố?</h4>
+
 <ul>
-<li>Log giúp tái dựng chuỗi sự kiện</li>
-<li>Không có log → không điều tra được sự cố</li>
-<li>Cloud hỗ trợ logging ở hạ tầng, mạng và ứng dụng</li>
-<li>Monitoring phát hiện sớm, logging hỗ trợ xử lý sự cố</li>
+<li><strong>Ai?</strong>
+<ul>
+<li>Tài khoản nào thực hiện hành vi?</li>
+<li>IP nào, thiết bị nào, user-agent nào?</li>
 </ul>
+</li>
+
+<li><strong>Khi nào?</strong>
+<ul>
+<li>Thời điểm bắt đầu sự cố</li>
+<li>Thời gian sự cố kéo dài</li>
+<li>Trình tự các hành động</li>
+</ul>
+</li>
+
+<li><strong>Làm gì?</strong>
+<ul>
+<li>Đăng nhập, truy vấn dữ liệu, thay đổi cấu hình</li>
+<li>Tải lên hoặc tải xuống dữ liệu</li>
+<li>Thao tác thành công hay thất bại</li>
+</ul>
+</li>
+
+<li><strong>Như thế nào?</strong>
+<ul>
+<li>Qua giao thức nào (HTTP, SSH, API…)</li>
+<li>Từ vị trí nào (quốc gia, vùng)</li>
+</ul>
+</li>
+
+<li><strong>Mức độ ảnh hưởng?</strong>
+<ul>
+<li>Tài nguyên nào bị truy cập</li>
+<li>Dữ liệu nào có nguy cơ bị lộ</li>
+</ul>
+</li>
+</ul>
+
+<p>
+<strong>Kết luận:</strong> Không có log → không thể trả lời đầy đủ các câu hỏi trên.
+</p>
+
+<h4>3. Nếu không có log: khó khăn trong xác định nguyên nhân và trách nhiệm</h4>
+
+<p><strong>Khó khăn trong xác định nguyên nhân:</strong></p>
+<ul>
+<li>Không xác định được điểm xâm nhập ban đầu</li>
+<li>Không biết lỗ hổng bị khai thác là gì</li>
+<li>Không xác định được trình tự hành vi bất thường</li>
+<li>Không phân biệt được lỗi cấu hình, lỗi người dùng hay tấn công có chủ đích</li>
+</ul>
+
+<p><strong>Khó khăn trong xác định trách nhiệm:</strong></p>
+<ul>
+<li>Không có bằng chứng chứng minh là người nội bộ hay bên ngoài</li>
+<li>Không thể quy trách nhiệm cho cá nhân hoặc bộ phận</li>
+<li>Không đáp ứng được yêu cầu pháp lý và kiểm toán</li>
+</ul>
+
+<p>
+<strong>Kết luận:</strong> Không có log, việc điều tra sự cố chỉ dựa trên suy đoán.
+</p>
+
+<h4>4. Rủi ro của log nếu ghi quá chi tiết hoặc không được bảo vệ</h4>
+
+<p><strong>(1) Rủi ro khi log ghi quá chi tiết</strong></p>
+<ul>
+<li>Lộ thông tin nhạy cảm: mật khẩu, token xác thực, dữ liệu cá nhân (PII)</li>
+<li>Dung lượng log lớn gây tăng chi phí lưu trữ cloud</li>
+<li>Gây nhiễu phân tích, khó lọc sự kiện quan trọng</li>
+</ul>
+
+<p><strong>(2) Rủi ro khi log không được bảo vệ đúng cách</strong></p>
+<ul>
+<li>Kẻ tấn công có thể đọc, xóa hoặc chỉnh sửa log để che giấu dấu vết</li>
+<li>Vi phạm các chuẩn tuân thủ như ISO 27001, GDPR, PCI-DSS</li>
+</ul>
+
+<p>
+<strong>Kết luận:</strong> Log phải được bảo vệ như dữ liệu mật.
+</p>
+
+<h4>5. Cloud hỗ trợ monitoring và logging ở những lớp nào?</h4>
+
+<ul>
+<li><strong>Lớp hạ tầng (Infrastructure layer)</strong>
+<ul>
+<li>VM: CPU, RAM, Disk, trạng thái máy</li>
+<li>Storage access log</li>
+<li>Hypervisor events (do nhà cung cấp quản lý)</li>
+</ul>
+</li>
+
+<li><strong>Lớp mạng (Network layer)</strong>
+<ul>
+<li>VPC Flow Logs</li>
+<li>Firewall / Security Group logs</li>
+<li>Load Balancer access logs</li>
+</ul>
+</li>
+
+<li><strong>Lớp ứng dụng (Application layer)</strong>
+<ul>
+<li>Application logs</li>
+<li>API access logs</li>
+<li>Authentication & Authorization logs</li>
+</ul>
+</li>
+</ul>
+
+<p>
+Cloud cho phép tập trung log theo mô hình centralized logging.
+</p>
+
+<h4>6. Cloud không thể giám sát những gì trong ứng dụng?</h4>
+<ul>
+<li>Logic nghiệp vụ bên trong ứng dụng</li>
+<li>Ý nghĩa dữ liệu mà ứng dụng xử lý</li>
+<li>Các hành vi bất thường mang tính ngữ cảnh nghiệp vụ</li>
+</ul>
+
+<h4>7. Monitoring giúp phát hiện sự cố ở giai đoạn nào?</h4>
+<ul>
+<li>Phát hiện sớm khi lưu lượng tăng đột biến</li>
+<li>Phát hiện khi tài nguyên quá tải</li>
+<li>Phát hiện khi tỷ lệ lỗi tăng cao</li>
+<li>Trước khi hệ thống sập hoặc mất dữ liệu</li>
+</ul>
+
+<h4>8. Logging hỗ trợ Incident Response như thế nào?</h4>
+<ol>
+<li><strong>Detection:</strong> Phát hiện đăng nhập bất thường, truy cập trái phép</li>
+<li><strong>Analysis:</strong> Phân tích nguyên nhân gốc và phạm vi ảnh hưởng</li>
+<li><strong>Containment:</strong> Chặn IP, khóa tài khoản, cô lập tài nguyên</li>
+<li><strong>Eradication & Recovery:</strong> Vá lỗ hổng, khôi phục hệ thống</li>
+<li><strong>Post-Incident:</strong> Rút kinh nghiệm, cải thiện rule giám sát</li>
+</ol>
+
+<h4>9. Phát hiện sự cố sớm và muộn – Hậu quả khác nhau</h4>
+
+<p><strong>Phát hiện sớm:</strong></p>
+<ul>
+<li>Giảm thiểu thiệt hại</li>
+<li>Ngăn chặn kịp thời</li>
+<li>Ít dữ liệu bị ảnh hưởng</li>
+<li>Chi phí khắc phục thấp</li>
+</ul>
+
+<p><strong>Phát hiện muộn:</strong></p>
+<ul>
+<li>Dữ liệu có thể bị sao chép, chỉnh sửa hoặc xóa</li>
+<li>Tấn công lan rộng sang nhiều hệ thống</li>
+<li>Mất uy tín và vi phạm pháp lý</li>
+<li>Khó truy vết do log bị ghi đè hoặc mất</li>
+</ul>
+
 
 <p><strong>Kết luận:</strong> Monitoring và Logging phải kết hợp thì hệ thống cloud mới an toàn và hiệu quả.</p>
 
@@ -559,6 +990,7 @@ function openTab(id, btn) {
 
 </body>
 </html>
+
 
 
 
