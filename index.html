@@ -146,6 +146,7 @@ footer.full { margin-left: 0; }
     <button class="tab-btn active" onclick="openTab('members', this)">👥 Thành viên</button>
     <button class="tab-btn" onclick="openTab('lab1', this)">☁️ Lab 1 – Cloud & CDN</button>
     <button class="tab-btn" onclick="openTab('lab2', this)">🔐 Lab 2 – Zero Trust</button>
+    <button class="tab-btn" onclick="openTab('lab4', this)">📊 Lab 4 – Monitoring & Logging</button>
 </nav>
 
 <header id="header">
@@ -382,6 +383,148 @@ footer.full { margin-left: 0; }
 </div>
 </div>
 
+<!-- ===== LAB 4 ===== -->
+<div id="lab4" class="tab-content">
+<div class="content">
+<h2>Lab Tuần 4 – Giám sát, Nhật ký và Phát hiện bất thường</h2>
+
+<h3>I. Yêu cầu 1: Kiến thức cơ bản</h3>
+
+<p><strong>1. Monitoring là gì?</strong></p>
+<p><strong>Khái niệm:</strong> Monitoring (giám sát) là việc theo dõi liên tục tình trạng và hiệu suất của hệ thống trong thời gian thực.</p>
+
+<p><strong>Nội dung:</strong></p>
+<ul>
+<li>Theo dõi CPU, RAM, dung lượng, mạng</li>
+<li>Theo dõi trạng thái server, ứng dụng</li>
+<li>Cảnh báo khi có bất thường (quá tải, sập dịch vụ)</li>
+</ul>
+
+<p><strong>Mục đích:</strong></p>
+<ul>
+<li>Phát hiện sự cố ngay khi xảy ra</li>
+<li>Giảm downtime</li>
+<li>Đảm bảo hệ thống hoạt động ổn định</li>
+</ul>
+
+<p><strong>Đánh giá:</strong></p>
+<ul>
+<li>Phản ứng nhanh</li>
+<li>Phù hợp cho vận hành và DevOps</li>
+<li>Không đi sâu phân tích nguyên nhân</li>
+</ul>
+
+<hr>
+
+<p><strong>2. Logging là gì?</strong></p>
+<p><strong>Khái niệm:</strong> Logging là việc ghi lại toàn bộ sự kiện và hoạt động diễn ra trong hệ thống.</p>
+
+<p><strong>Nội dung:</strong></p>
+<ul>
+<li>Log đăng nhập người dùng</li>
+<li>Log truy cập API</li>
+<li>Log lỗi hệ thống</li>
+<li>Log thay đổi cấu hình</li>
+</ul>
+
+<p><strong>Mục đích:</strong></p>
+<ul>
+<li>Phân tích nguyên nhân sự cố</li>
+<li>Điều tra tấn công</li>
+<li>Phục vụ audit và tuân thủ</li>
+</ul>
+
+<p><strong>Đánh giá:</strong></p>
+<ul>
+<li>Dữ liệu chi tiết</li>
+<li>Phân tích được sự cố trong quá khứ</li>
+<li>Không phản ứng tức thì</li>
+</ul>
+
+<hr>
+
+<p><strong>3. Security Visibility trong Cloud</strong></p>
+<p><strong>Khái niệm:</strong> Security Visibility là khả năng nhìn thấy và kiểm soát toàn bộ hoạt động bảo mật trong môi trường cloud.</p>
+
+<ul>
+<li>Kết hợp monitoring và logging</li>
+<li>Theo dõi hành vi người dùng</li>
+<li>Phát hiện tấn công sớm</li>
+</ul>
+
+<p><strong>Đánh giá:</strong></p>
+<ul>
+<li>Rất quan trọng trong cloud</li>
+<li>Hỗ trợ SOC, Blue Team</li>
+<li>Cần nhiều công cụ phối hợp</li>
+</ul>
+
+<hr>
+
+<p><strong>4. Vai trò Monitoring & Logging trong Cloud</strong></p>
+<ul>
+<li><strong>Monitoring:</strong> Giám sát tài nguyên, cảnh báo sập dịch vụ</li>
+<li><strong>Logging:</strong> Ghi lại hành vi, hỗ trợ điều tra và audit</li>
+</ul>
+
+<hr>
+
+<p><strong>5. So sánh Monitoring và Logging</strong></p>
+<table style="width:100%; border-collapse: collapse; text-align:center;">
+<tr style="background:#f0f0f0;">
+<th style="border:1px solid #ccc; padding:8px;">Tiêu chí</th>
+<th style="border:1px solid #ccc; padding:8px;">Monitoring</th>
+<th style="border:1px solid #ccc; padding:8px;">Logging</th>
+</tr>
+<tr>
+<td style="border:1px solid #ccc; padding:8px;">Thời điểm</td>
+<td style="border:1px solid #ccc; padding:8px;">Thời gian thực</td>
+<td style="border:1px solid #ccc; padding:8px;">Sau khi xảy ra</td>
+</tr>
+<tr>
+<td style="border:1px solid #ccc; padding:8px;">Dữ liệu</td>
+<td style="border:1px solid #ccc; padding:8px;">Chỉ số (metrics)</td>
+<td style="border:1px solid #ccc; padding:8px;">Sự kiện chi tiết</td>
+</tr>
+<tr>
+<td style="border:1px solid #ccc; padding:8px;">Mục tiêu</td>
+<td style="border:1px solid #ccc; padding:8px;">Phát hiện sớm</td>
+<td style="border:1px solid #ccc; padding:8px;">Phân tích nguyên nhân</td>
+</tr>
+</table>
+
+<h3>II. Yêu cầu 2: Đối tượng cần giám sát</h3>
+<ul>
+<li>Người dùng truy cập hệ thống</li>
+<li>Phiên đăng nhập (session)</li>
+<li>Hoạt động đăng nhập / đăng xuất</li>
+<li>Các yêu cầu truy cập bất thường</li>
+<li>Các lỗi phát sinh trong hệ thống</li>
+</ul>
+
+<h3>III. Yêu cầu 3: Phân tích hành vi bất thường</h3>
+<ul>
+<li>Request tăng đột biến</li>
+<li>Nhiều lần đăng nhập thất bại</li>
+<li>IP / vị trí không quen thuộc</li>
+</ul>
+
+<p><strong>Nhận xét:</strong> Monitoring phát hiện có bất thường, Logging trả lời bất thường đó là gì và do ai gây ra.</p>
+
+<h3>IV. Yêu cầu 4: Log & Incident Response</h3>
+<ul>
+<li>Log giúp tái dựng chuỗi sự kiện</li>
+<li>Không có log → không điều tra được sự cố</li>
+<li>Cloud hỗ trợ logging ở hạ tầng, mạng và ứng dụng</li>
+<li>Monitoring phát hiện sớm, logging hỗ trợ xử lý sự cố</li>
+</ul>
+
+<p><strong>Kết luận:</strong> Monitoring và Logging phải kết hợp thì hệ thống cloud mới an toàn và hiệu quả.</p>
+
+</div>
+</div>
+
+    
 </div>
 
 <footer id="footer">
@@ -416,5 +559,6 @@ function openTab(id, btn) {
 
 </body>
 </html>
+
 
 
