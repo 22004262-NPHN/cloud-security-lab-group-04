@@ -146,6 +146,7 @@ footer.full { margin-left: 0; }
     <button class="tab-btn active" onclick="openTab('members', this)">👥 Thành viên</button>
     <button class="tab-btn" onclick="openTab('lab1', this)">☁️ Lab 1 – Cloud & CDN</button>
     <button class="tab-btn" onclick="openTab('lab2', this)">🔐 Lab 2 – Zero Trust</button>
+    <button class="tab-btn" onclick="openTab('lab3', this)">🛡️ Lab 3 – OWASP</button>
     <button class="tab-btn" onclick="openTab('lab4', this)">📊 Lab 4 – Monitoring & Logging</button>
 </nav>
 
@@ -383,6 +384,226 @@ footer.full { margin-left: 0; }
 </div>
 </div>
 
+<!-- ===== LAB 3 ===== -->
+<div id="lab3" class="tab-content">
+<div class="content">
+
+<h2>Lab Tuần 3 – Cấu hình, Phát hiện & Khắc phục lỗ hổng OWASP</h2>
+
+<h3>I. Mục tiêu</h3>
+<ul>
+<li>Triển khai ứng dụng web có chủ đích yếu bảo mật</li>
+<li>Phát hiện các lỗ hổng OWASP Top 10</li>
+<li>Thực hiện cấu hình và khắc phục lỗi cơ bản</li>
+<li>Đánh giá rủi ro khi triển khai trên Cloud</li>
+</ul>
+
+<h3>II. Kiến thức nền tảng</h3>
+
+<p><strong>HTTPS là gì?</strong></p>
+<p>
+HTTPS là phiên bản bảo mật của HTTP, sử dụng TLS để mã hóa dữ liệu truyền giữa trình duyệt và server,
+ngăn nghe lén và tấn công Man-in-the-Middle.
+</p>
+
+<p><strong>HTTP Security Headers</strong></p>
+<ul>
+<li>HSTS – Bắt buộc dùng HTTPS</li>
+<li>CSP – Hạn chế nguồn tải script</li>
+<li>X-Frame-Options – Chống clickjacking</li>
+<li>Referrer-Policy – Kiểm soát referrer</li>
+</ul>
+
+<p><strong>OWASP Top 10</strong></p>
+<p>
+OWASP Top 10 là danh sách 10 rủi ro bảo mật nghiêm trọng nhất đối với ứng dụng web.
+</p>
+
+<ul>
+<li>A01 – Broken Access Control</li>
+<li>A02 – Security Misconfiguration</li>
+<li>A03 – Injection</li>
+<li>A04 – Insecure Design</li>
+<li>A05 – Authentication Failures</li>
+<li>A06 – Security Logging & Monitoring Failures</li>
+<li>A07 – Identification & Authentication Failures</li>
+<li>A08 – Software & Data Integrity Failures</li>
+<li>A09 – Security Logging & Alerting Failures</li>
+<li>A10 – Server-Side Request Forgery (SSRF)</li>
+</ul>
+
+<h3>III. Công cụ sử dụng</h3>
+<ul>
+<li>OWASP Juice Shop (Web giả lập lỗi bảo mật)</li>
+<li>Browser DevTools (F12)</li>
+<li>Docker (triển khai local)</li>
+</ul>
+
+<h3>IV. Các lỗ hổng đã phát hiện</h3>
+
+<h4>1. Xử lý upload file không an toàn</h4>
+<p><strong>Thuộc OWASP:</strong> A06 – Security Misconfiguration</p>
+<p><strong>Mô tả lỗi:</strong>
+Ứng dụng cho phép gọi trực tiếp API upload ảnh đại diện nhưng không kiểm tra đầy đủ dữ liệu đầu vào.
+Khi request không có file, server trả về thông báo lỗi chi tiết, làm lộ logic xử lý phía backend.
+</p>
+<p><strong>Nhận xét rủi ro khi triển khai trên Cloud:</strong>
+Lỗ hổng có thể bị lợi dụng để dò cấu trúc API, thực hiện upload file trái phép,
+dẫn đến nguy cơ chiếm quyền hệ thống, rò rỉ dữ liệu trên cloud storage
+và tăng chi phí vận hành.
+</p>
+
+<hr>
+
+<h4>2. CAPTCHA yếu / Có thể bypass</h4>
+<p><strong>Thuộc OWASP:</strong> A07 – Identification and Authentication Failures</p>
+<p><strong>Mô tả lỗi:</strong>
+Form phản hồi sử dụng CAPTCHA dạng phép toán đơn giản.
+Cơ chế này dễ đoán, có thể tự động hóa hoặc bỏ qua bằng cách gửi request trực tiếp.
+</p>
+<p><strong>Nhận xét rủi ro khi triển khai trên Cloud:</strong>
+Bot có thể gửi hàng loạt request giả, gây spam dữ liệu,
+làm tăng tài nguyên xử lý (CPU, băng thông) và phát sinh chi phí cloud.
+</p>
+
+<hr>
+
+<h4>3. Mật khẩu yếu vẫn đăng nhập thành công</h4>
+<p><strong>Thuộc OWASP:</strong> A07 – Identification and Authentication Failures</p>
+<p><strong>Mô tả lỗi:</strong>
+Ứng dụng cho phép đăng nhập với mật khẩu rất yếu,
+không có kiểm tra độ mạnh hoặc cảnh báo bảo mật.
+</p>
+<p><strong>Nhận xét rủi ro khi triển khai trên Cloud:</strong>
+Dễ bị brute-force hoặc credential stuffing,
+dẫn đến chiếm quyền truy cập và rò rỉ dữ liệu hệ thống cloud.
+</p>
+
+<hr>
+
+<h4>4. Hiển thị nội dung tìm kiếm không được kiểm soát (XSS)</h4>
+<p><strong>Thuộc OWASP:</strong> A03 – Injection (DOM-based XSS)</p>
+<p><strong>Mô tả lỗi:</strong>
+Nội dung người dùng nhập vào ô Search được hiển thị trực tiếp
+mà không được mã hóa hoặc kiểm tra an toàn.
+</p>
+<p><strong>Nhận xét rủi ro khi triển khai trên Cloud:</strong>
+Có thể đánh cắp cookie, session người dùng,
+thực hiện hành vi giả mạo hoặc phát tán mã độc.
+</p>
+
+<hr>
+
+<h4>5. Feedback hiển thị HTML và lộ thông tin email</h4>
+<p><strong>Thuộc OWASP:</strong> A03 – Injection (XSS),
+A01 – Broken Access Control</p>
+<p><strong>Mô tả lỗi:</strong>
+Chức năng Feedback cho phép hiển thị HTML thô
+và công khai email người gửi mà không xử lý an toàn.
+</p>
+<p><strong>Nhận xét rủi ro khi triển khai trên Cloud:</strong>
+Dẫn đến thực thi mã độc trên trình duyệt
+và rò rỉ thông tin cá nhân, vi phạm quyền riêng tư.
+</p>
+
+<hr>
+
+<h4>6. Cross-Site Scripting (Self-XSS Warning)</h4>
+<p><strong>Thuộc OWASP:</strong> A03 – Injection</p>
+<p><strong>Mô tả lỗi:</strong>
+Ứng dụng chưa kiểm soát đầy đủ thao tác DOM,
+có nguy cơ Self-XSS và Stored XSS nếu kết hợp social engineering.
+</p>
+<p><strong>Nhận xét rủi ro khi triển khai trên Cloud:</strong>
+Đánh cắp session, JWT, OAuth token,
+ảnh hưởng toàn bộ hệ thống nếu dùng SSO cloud.
+</p>
+
+<hr>
+
+<h4>7. SQL Injection (Bypass xác thực)</h4>
+<p><strong>Thuộc OWASP:</strong> A03 – Injection</p>
+<p><strong>Mô tả lỗi:</strong>
+Ứng dụng cho phép nhập payload SQL
+(<code>' OR '1'='1 --</code>) vào trường Email để đăng nhập thành công.
+</p>
+<p><strong>Nhận xét rủi ro khi triển khai trên Cloud:</strong>
+Cho phép chiếm quyền tài khoản,
+dump dữ liệu Cloud Database (RDS, Cloud SQL),
+vi phạm pháp lý và tiêu chuẩn bảo mật.
+</p>
+
+<hr>
+
+<h4>8. Broken Access Control (Rò rỉ thông tin tài khoản Administrator)</h4>
+<p><strong>Thuộc OWASP:</strong> A01 – Broken Access Control</p>
+<p><strong>Mô tả lỗi:</strong>
+Người dùng thường có thể nhìn thấy
+và sử dụng địa chỉ tài khoản Administrator trong quá trình checkout.
+</p>
+<p><strong>Nhận xét rủi ro khi triển khai trên Cloud:</strong>
+Leo thang đặc quyền, gian lận,
+chiếm quyền quản trị và ảnh hưởng nghiêm trọng đến hệ thống.
+</p>
+
+<hr>
+
+<h4>9. Insecure Design (Sai lệch dữ liệu giỏ hàng)</h4>
+<p><strong>Thuộc OWASP:</strong> A04 – Insecure Design</p>
+<p><strong>Mô tả lỗi:</strong>
+Số lượng sản phẩm hiển thị không khớp
+giữa giỏ hàng và trang thanh toán,
+cho thấy server tin tưởng dữ liệu client.
+</p>
+<p><strong>Nhận xét rủi ro khi triển khai trên Cloud:</strong>
+Gian lận đơn hàng, bot tự động khai thác,
+ảnh hưởng hệ thống thanh toán cloud.
+</p>
+
+<h3>V. Triển khai OWASP Juice Shop Local</h3>
+
+<p><strong>Lệnh Docker:</strong></p>
+<pre>
+docker pull bkimminich/juice-shop
+docker run --rm -p 3000:3000 bkimminich/juice-shop
+</pre>
+
+<p>
+Ứng dụng chạy tại <strong>http://localhost:3000</strong>
+</p>
+
+<h3>VI. Giải pháp khắc phục</h3>
+
+<ul>
+<li>Prepared Statements – chống SQL Injection</li>
+<li>Encode output & CSP – chống XSS</li>
+<li>Kiểm tra quyền ở backend – chống IDOR</li>
+<li>Tắt debug, cấu hình security headers</li>
+<li>WAF & Rate Limiting trên Cloud</li>
+</ul>
+
+<h3>VII. Đánh giá rủi ro trên Cloud</h3>
+
+<p>
+<strong>Security Misconfiguration</strong> là lỗ hổng nguy hiểm nhất khi triển khai cloud vì:
+</p>
+
+<ul>
+<li>Ứng dụng public Internet</li>
+<li>Chỉ một cấu hình sai → ảnh hưởng toàn hệ thống</li>
+<li>Dễ bị bot tự động khai thác</li>
+</ul>
+
+<h3>VIII. Kết luận</h3>
+<p>
+OWASP Juice Shop giúp hiểu rõ mối liên hệ giữa cấu hình sai và rủi ro bảo mật.
+Cloud có nhiều lớp bảo vệ mạnh, nhưng hiệu quả chỉ đạt được khi cấu hình đúng.
+</p>
+
+</div>
+</div>
+
+    
 <!-- ===== LAB 4 ===== -->
 <div id="lab4" class="tab-content">
 <div class="content">
@@ -547,6 +768,7 @@ function openTab(id, btn) {
 
 </body>
 </html>
+
 
 
 
